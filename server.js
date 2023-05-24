@@ -1,12 +1,13 @@
 'use strict';
 
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose')
 // process.env.DatabaseUrl = 'mongodb://localhost:27017/BookDB'
-const BookData = require('./books')
-const Seed = require('./seed')
+const BookData = require('./books'); // Import the BookData model or data access layer
+
+const Seed = require('./seed'); // Import the seed script for database population
 
 const app = express();
 app.use(cors());
@@ -17,7 +18,7 @@ const PORT = process.env.PORT || 3001;
 
 
 app.get('/', (req, res) => {
-  // Send a response to the client
+  // Sending a response to the client
   res.send('Hello World!')
 
 
@@ -31,11 +32,11 @@ app.get('/books', async (req, res) => {
 
     });
 
-    const books = await BookData.find();
+    const books = await BookData.find(); // this is retreieving the books from the BookData model
 
-    mongoose.disconnect();
+    mongoose.disconnect();// Disconnect from the database
 
-    res.json(books);
+    res.json(books); // sending the books as a JSON response to client 
 
     console.log(books)
   } catch (error) {
@@ -63,9 +64,9 @@ app.get('/books', async (req, res) => {
 
 
 app.get('/test', (request, response) => {
-
+  // sending a response to the client
   response.send('test request received')
 
 })
 
-app.listen(PORT, () => console.log(`listening on ${PORT}`));
+app.listen(PORT, () => console.log(`listening on ${PORT}`)); // Start the server and log the port
