@@ -25,7 +25,11 @@ app.get('/', (req, res) => {
 
 app.get('/books', async (req, res) => {
   try {
-    await mongoose.connect(process.env.Database_Url, { connectTimeoutMS: 30000 });
+    await mongoose.connect(process.env.Database_Url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+
+    });
 
     const books = await BookData.find();
 
