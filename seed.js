@@ -7,7 +7,7 @@ require('dotenv').config();
 
 
 async function seed() {
-    mongoose.connect(process.env.Database_Url);
+    await mongoose.connect(process.env.Database_Url, );
     
     // Create and save the first book with the attributes
     const djBook = new Book({
