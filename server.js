@@ -1,4 +1,4 @@
-'use strict';
+
 
 require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
@@ -31,6 +31,9 @@ app.get('/books', async (req, res) => {
       useUnifiedTopology: true
 
     });
+    //const conn = await mongoose.createConnection(process.env.Database_Url).asPromise();
+
+    //mongoose.model('Book', BookData)
 
     const books = await BookData.find(); // this is retreieving the books from the BookData model
 
