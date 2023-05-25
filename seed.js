@@ -20,6 +20,11 @@ async function seed() {
         title: 'Harry Potter',
         description: 'an orphan brought up by his aunt and uncle because his parents were killed when he was a baby. Harry is unloved by his uncle and aunt but everything changes when he is invited to join Hogwarts School of Witchcraft and Wizardry and he finds out he is a wizard',
         status: 'Published'
+    await djBook.save()
+    // await Book.create({
+    //     title: 'Harry Potter',
+    //     description: 'an orphan brought up by his aunt and uncle because his parents were killed when he was a baby. Harry is unloved by his uncle and aunt but everything changes when he is invited to join Hogwarts School of Witchcraft and Wizardry and he finds out he is a wizard',
+    //     status: 'Published' 
         
     });
     // This is creating the second book with the attributes
