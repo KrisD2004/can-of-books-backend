@@ -73,9 +73,10 @@ app.delete('/books/:id', async (req, res) => {
     });
 
     const bookId = req.params.id; // Access the book id from request params
-
+    
     // Find and delete the book with the given id
     const deletedBook = await BookData.findByIdAndDelete(bookId);
+    const books = await BookData.find()
 
     mongoose.disconnect(); // Disconnect from the database
 
@@ -83,7 +84,7 @@ app.delete('/books/:id', async (req, res) => {
       return res.status(404).send('Book was not found with the entered name');
     }
 
-    res.json(deletedBook); // Return the deleted book as a JSON response
+    res.json(books); // Return the deleted book as a JSON response
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send('Internal server error' );
