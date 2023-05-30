@@ -50,9 +50,14 @@ app.get('/books', async (req, res) => {
 
 app.post('/books', async (req, res) => {
   try {
+    await mongoose.connect(process.env.Database_Url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
     // Create a new book record in the database using the data from the request body
     const newBook = await BookData.create(req.body);
-    res.send(newBook); // Return the newly created book as a JSON response
+    const books = await BookData.find()
+    res.send(books); // Return the newly created book as a JSON response
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
