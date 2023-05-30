@@ -11,12 +11,11 @@ async function seed() {
     
     // Create and save the first book with the attributes
    
-    
     await Book.create({
         title: 'Harry Potter',
         description: 'an orphan brought up by his aunt and uncle because his parents were killed when he was a baby. Harry is unloved by his uncle and aunt but everything changes when he is invited to join Hogwarts School of Witchcraft and Wizardry and he finds out he is a wizard',
         status: 'Published'
-    
+     
     });
     // This is creating the second book with the attributes
     await Book.create({
@@ -38,38 +37,4 @@ async function seed() {
 seed(); // calling the seed function to add stuff in the database.
 
 
-// Connect to MongoDB
-// mongoose.connect('mongodb://localhost:27017/mydatabase', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
 
-// Create three Book objects
-// const books = [
-//   {
-//     title: 'Book 1',
-//     description: 'Description of Book 1',
-//     status: 'Available',
-//   },
-//   {
-//     title: 'Book 2',
-//     description: 'Description of Book 2',
-//     status: 'Reserved',
-//   },
-//   {
-//     title: 'Book 3',
-//     description: 'Description of Book 3',
-//     status: 'Checked Out',
-//   },
-// ];
-
-// Save the books to the database
-// Book.create(books)
-//   .then((createdBooks) => {
-//     console.log('Books created:', createdBooks);
-//     mongoose.connection.close();
-//   })
-//   .catch((error) => {
-//     console.error('Error seeding database:', error);
-//     mongoose.connection.close();
-//   });
