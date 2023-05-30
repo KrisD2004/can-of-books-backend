@@ -32,7 +32,6 @@ app.get('/books', async (req, res) => {
 
     });
     //const conn = await mongoose.createConnection(process.env.Database_Url).asPromise();
-
     //mongoose.model('Book', BookData)
 
     const books = await BookData.find(); // this is retreieving the books from the BookData model
@@ -47,6 +46,47 @@ app.get('/books', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
+app.post('/books', async (req, res) => {
+  try {
+    // Create a new book record in the database using the data from the request body
+    const newBook = await BookData.create(req.body);
+    res.send(newBook); // Return the newly created book as a JSON response
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+app.delete('/books/:id', async (req, res) => {
+  try {
+    await mongoose.connect(process.env.Database_Url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+
+    const bookId = req.params.id; // Access the book id from request params
+
+    // Find and delete the book with the given id
+    const deletedBook = await BookData.findByIdAndDelete(bookId);
+
+    mongoose.disconnect(); // Disconnect from the database
+
+    if (!deletedBook) {
+      return res.status(404).send('Book was not found with the entered name');
+    }
+
+    res.json(deletedBook); // Return the deleted book as a JSON response
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal server error' );
+  }
+});
+
+
+
 
 // app.get('/books', async (req, res) => {
 //   await mongoose.connect(process.env.DatabaseUrl)
