@@ -91,6 +91,32 @@ app.delete('/books/:id', async (req, res) => {
   }
 });
 
+app.put('/books/:id', async (req, res) => {
+  try {
+    await mongoose.connect(process.env.Database_Url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+
+    const bookId = req.params.id; // Access the book id from request params
+
+    // Find the book with the given id and update its data with the request body
+    const updatedBook = await BookData.findByIdAndUpdate(bookId, req.body, { new: true });
+    const books = await BookData.find();
+
+    mongoose.disconnect(); // Disconnect from the database
+
+    if (!updatedBook) {
+      return res.status(404).send('Book was not found with the entered title');
+    }
+
+    res.json(books); // Return0 the updated book as a JSON response
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal server error');
+  }
+});
+
 
 
 
