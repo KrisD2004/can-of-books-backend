@@ -99,9 +99,9 @@ app.put('/books/:id', async (req, res) => {
     });
 
     const bookId = req.params.id; // Access the book id from request params
-
+    const {title, description, status} = req.body
     // Find the book with the given id and update its data with the request body
-    const updatedBook = await BookData.findByIdAndUpdate(bookId, req.body, { new: true });
+    const updatedBook = await BookData.findByIdAndUpdate(bookId,{title,description,status}, { new: true });
     const books = await BookData.find();
 
     mongoose.disconnect(); // Disconnect from the database
