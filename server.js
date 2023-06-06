@@ -21,19 +21,19 @@ app.use(cors());
 app.use(express.json())
 const PORT = process.env.PORT || 3001;
 
-const verifyJWT = jwt({
-  secret: jwks.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: 'http://allow-edit-book.us.auth0.com/.well-known/jwks.json'
-  }),
-  audience: 'http://localhost:3001',
-  issuer: 'http://allow-edit-book.us.auth0.com/',
-  algorithms: ['RS256']
-}).unless({ path: ['/books'] })
+// const verifyJWT = jwt({
+//   secret: jwks.expressJwtSecret({
+//     cache: true,
+//     rateLimit: true,
+//     jwksRequestsPerMinute: 5,
+//     jwksUri: 'http://allow-edit-book.us.auth0.com/.well-known/jwks.json'
+//   }),
+//   audience: 'http://localhost:3001',
+//   issuer: 'http://allow-edit-book.us.auth0.com/',
+//   algorithms: ['RS256']
+// }).unless({ path: ['/books'] })
 
-app.use(verifyJWT);
+// app.use(verifyJWT);
 
 app.get('/', (req, res) => {
   // Sending a response to the client
@@ -43,8 +43,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/books', async (req, res) => {
+  // const userEmail = req.user.email;
   try {
-    const userEmail = req.user.email;
     await mongoose.connect(process.env.Database_Url, {
       useNewUrlParser: true,
       useUnifiedTopology: true
@@ -62,7 +62,7 @@ app.get('/books', async (req, res) => {
     //const conn = await mongoose.createConnection(process.env.Database_Url).asPromise();
     //mongoose.model('Book', BookData)
 
-    const books = await BookData.find({ email: userEmail }); // this is retreieving the books from the BookData model
+    const books = await BookData.find(); // this is retreieving the books from the BookData model
 
     mongoose.disconnect();// Disconnect from the database
 
@@ -78,8 +78,6 @@ app.get('/books', async (req, res) => {
 
 app.post('/books', async (req, res) => {
    try {
-    const userEmail = req.user.email;
-
     await mongoose.connect(process.env.Database_Url, {
       useNewUrlParser: true,
       useUnifiedTopology: true
@@ -96,8 +94,8 @@ app.post('/books', async (req, res) => {
     
     
     // Create a new book record in the database using the data from the request body
-    const newBook = await BookData.create({ ...req.body, email: userEmail });
-    const books = await BookData.find({ email: userEmail })
+    const newBook = await BookData.create(req.body);
+    const books = await BookData.find()
     res.send(books); // Return the newly created book as a JSON response
   } catch (error) {
     console.error('Error:', error);
@@ -112,7 +110,6 @@ app.delete('/books/:id',  async (req, res) => {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
-    const userEmail = req.user.email;
 
     const bookId = req.params.id; // Access the book id from request params
 
@@ -126,10 +123,8 @@ app.delete('/books/:id',  async (req, res) => {
     // res.send(userinfo)
 
     // Find and delete the book with the given id
-    // const deletedBook = await BookData.findByIdAndDelete(bookId);
-        const deletedBook = await BookData.findByIdAndDelete({ _id: bookId, email: userEmail });
-
-    const books = await BookData.find({ email: userEmail })
+    const deletedBook = await BookData.findByIdAndDelete(bookId);
+    const books = await BookData.find()
 
     mongoose.disconnect(); // Disconnect from the database
 
@@ -165,7 +160,7 @@ app.put('/books/:id',  async (req, res) => {
 
     
     // Find the book with the given id and update its data with the request body
-    const updatedBook = await BookData.findByIdAndUpdate(bookId, {_id: bookId, email: userEmail}, { title, description, status }, { new: true });
+    const updatedBook = await BookData.findByIdAndUpdate(bookId, { title, description, status }, { new: true });
     const books = await BookData.find();
 
     mongoose.disconnect(); // Disconnect from the database
