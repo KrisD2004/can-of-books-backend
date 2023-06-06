@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
 
 })
 
-app.get('/books', verifyJWT, async (req, res) => {
+app.get('/books', async (req, res) => {
   const userEmail = req.user.email;
   try {
     await mongoose.connect(process.env.Database_Url, {
@@ -50,14 +50,14 @@ app.get('/books', verifyJWT, async (req, res) => {
       useUnifiedTopology: true
 
     });
-    const accessToken = req.headers.authorization.split(' ')[1];
-    const user = await axios.get('http://allow-edit-book.us.auth0.com/userinfo', {
-      headers: {
-        authorization: `Bearer ${accessToken}`
-      }
-    });
-    const userinfo = user.data;
-    res.send(userinfo)
+    // const accessToken = req.headers.authorization.split(' ')[1];
+    // const user = await axios.get('http://allow-edit-book.us.auth0.com/userinfo', {
+    //   headers: {
+    //     authorization: `Bearer ${accessToken}`
+    //   }
+    // });
+    // const userinfo = user.data;
+    // res.send(userinfo)
 
     //const conn = await mongoose.createConnection(process.env.Database_Url).asPromise();
     //mongoose.model('Book', BookData)
@@ -84,14 +84,14 @@ app.post('/books', async (req, res) => {
       useUnifiedTopology: true
     });
 
-    const accessToken = req.headers.authorization.split(' ')[1];
-    const user = await axios.get('http://allow-edit-book.us.auth0.com/userinfo', {
-      headers: {
-        authorization: `Bearer ${accessToken}`
-      }
-    });
-    const userinfo = user.data;
-    res.send(userinfo)
+    // const accessToken = req.headers.authorization.split(' ')[1];
+    // const user = await axios.get('http://allow-edit-book.us.auth0.com/userinfo', {
+    //   headers: {
+    //     authorization: `Bearer ${accessToken}`
+    //   }
+    // });
+    // const userinfo = user.data;
+    // res.send(userinfo)
     
     
     // Create a new book record in the database using the data from the request body
@@ -114,14 +114,14 @@ app.delete('/books/:id',  async (req, res) => {
 
     const bookId = req.params.id; // Access the book id from request params
 
-    const accessToken = req.headers.authorization.split(' ')[1];
-    const user = await axios.get('http://allow-edit-book.us.auth0.com/userinfo', {
-      headers: {
-        authorization: `Bearer ${accessToken}`
-      }
-    });
-    const userinfo = user.data;
-    res.send(userinfo)
+    // const accessToken = req.headers.authorization.split(' ')[1];
+    // const user = await axios.get('http://allow-edit-book.us.auth0.com/userinfo', {
+    //   headers: {
+    //     authorization: `Bearer ${accessToken}`
+    //   }
+    // });
+    // const userinfo = user.data;
+    // res.send(userinfo)
 
     // Find and delete the book with the given id
     const deletedBook = await BookData.findByIdAndDelete(bookId);
@@ -150,14 +150,14 @@ app.put('/books/:id',  async (req, res) => {
     const bookId = req.params.id; // Access the book id from request params
     const { title, description, status } = req.body
 
-    const accessToken = req.headers.authorization.split(' ')[1];
-    const user = await axios.get('http://allow-edit-book.us.auth0.com/userinfo', {
-      headers: {
-        authorization: `Bearer ${accessToken}`
-      }
-    });
-    const userinfo = user.data;
-    res.send(userinfo)
+    // const accessToken = req.headers.authorization.split(' ')[1];
+    // const user = await axios.get('http://allow-edit-book.us.auth0.com/userinfo', {
+    //   headers: {
+    //     authorization: `Bearer ${accessToken}`
+    //   }
+    // });
+    // const userinfo = user.data;
+    // res.send(userinfo)
 
     
     // Find the book with the given id and update its data with the request body
