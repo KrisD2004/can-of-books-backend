@@ -50,14 +50,14 @@ app.get('/books', async (req, res) => {
       useUnifiedTopology: true
 
     });
-    const accessToken = req.headers.authorization.split(' ')[1];
-    const user = await axios.get('http://allow-edit-book.us.auth0.com/userinfo', {
-      headers: {
-        authorization: `Bearer ${accessToken}`
-      }
-    });
-    const userinfo = user.data;
-    res.send(userinfo)
+    // const accessToken = req.headers.authorization.split(' ')[1];
+    // const user = await axios.get('http://allow-edit-book.us.auth0.com/userinfo', {
+    //   headers: {
+    //     authorization: `Bearer ${accessToken}`
+    //   }
+    // });
+    // const userinfo = user.data;
+    // res.send(userinfo)
 
      //mongoose.model('Book', BookData)
 
