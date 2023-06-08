@@ -12,3 +12,5 @@ async function verifyUser(request, response, next) {
     }
     next()
 }
+
+module.exports = verifyUser
