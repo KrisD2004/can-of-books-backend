@@ -6,6 +6,8 @@ const bookSchema = new mongoose.Schema({
     title:String, // title of the book
     description:String, // description of the book
     status:String, // the status of the book 
+    email: String // email of the user associated with the book
+
 });
 
 // creating the book model using the book schema

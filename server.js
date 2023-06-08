@@ -12,6 +12,8 @@ const axios = require('axios')
 // const { JwksClient } = require('jwks-rsa');
 const BookData = require('./books'); // Import the BookData model or data access layer
 const Seed = require('./seed'); // Import the seed script for database population
+const verifyUser = require('./verifyUser'); // Import the verifyUser middleware function
+
 
 
 
@@ -34,10 +36,14 @@ const PORT = process.env.PORT || 3001;
 // }).unless({ path: ['/books'] })
 
 // app.use(verifyJWT);
+app.use(verifyUser); 
 
-app.get('/', (req, res) => {
+
+app.get('/', async (req, res) => {
   // Sending a response to the client
   res.send('Hello World!')
+  let allBooks = await bookSchema.find({email: req.user.email}).exec()
+  response.send(allBooks)
 
 
 })
