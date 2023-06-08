@@ -42,8 +42,8 @@ app.use(verifyUser);
 app.get('/', async (req, res) => {
   // Sending a response to the client
   res.send('Hello World!')
-  let allBooks = await bookSchema.find({email: req.user.email}).exec()
-  response.send(allBooks)
+  // let allBooks = await bookSchema.find()
+  // response.send(allBooks)
 
 
 })
@@ -67,7 +67,7 @@ app.get('/books', async (req, res) => {
 
      //mongoose.model('Book', BookData)
 
-    const books = await BookData.find(); // this is retreieving the books from the BookData model
+    const books = await bookSchema.find(); // this is retreieving the books from the BookData model
 
     mongoose.disconnect();// Disconnect from the database
 
@@ -98,8 +98,8 @@ app.post('/books', async (req, res) => {
     
     
     // Create a new book record in the database using the data from the request body
-    const newBook = await BookData.create(req.body);
-    const books = await BookData.find()
+    const newBook = await bookSchema.create(req.body);
+    const books = await bookSchema.find()
     res.send(books); // Return the newly created book as a JSON response
   } catch (error) {
     console.error('Error:', error);
@@ -127,8 +127,8 @@ app.delete('/books/:id',  async (req, res) => {
     // res.send(userinfo)
 
     // Find and delete the book with the given id
-    const deletedBook = await BookData.findByIdAndDelete(bookId);
-    const books = await BookData.find()
+    const deletedBook = await bookSchema.findByIdAndDelete(bookId);
+    const books = await bookSchema.find()
 
     mongoose.disconnect(); // Disconnect from the database
 
@@ -164,8 +164,8 @@ app.put('/books/:id',  async (req, res) => {
 
     
     // Find the book with the given id and update its data with the request body
-    const updatedBook = await BookData.findByIdAndUpdate(bookId, { title, description, status }, { new: true });
-    const books = await BookData.find();
+    const updatedBook = await bookSchema.findByIdAndUpdate(bookId, { title, description, status }, { new: true });
+    const books = await bookSchema.find();
 
     mongoose.disconnect(); // Disconnect from the database
 
