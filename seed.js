@@ -35,7 +35,7 @@ async function seed() {
         email: 'user1@example.com' // Add email field for user 1
 
     });
-    console.log('Book is saved'); // Displaying a success message 
+    // console.log('Book is saved'); // Displaying a success message 
     
     mongoose.disconnect(); // this is disconnecting from the database. 
 }

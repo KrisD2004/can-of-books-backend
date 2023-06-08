@@ -73,7 +73,6 @@ app.get('/books', async (req, res) => {
 
     res.json(books); // sending the books as a JSON response to client 
 
-    console.log(books)
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
