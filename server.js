@@ -10,7 +10,7 @@ const jwt = require('express-jwt')
 const jwks = require('jwks-rsa')
 const axios = require('axios')
 // const { JwksClient } = require('jwks-rsa');
-const BookData = require('./books'); // Import the BookData model or data access layer
+const bookSchema = require('./books'); // Import the BookData model or data access layer
 const Seed = require('./seed'); // Import the seed script for database population
 const verifyUser = require('./verifyUser'); // Import the verifyUser middleware function
 
