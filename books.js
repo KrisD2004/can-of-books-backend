@@ -23,17 +23,5 @@ module.exports = Book;
 
 
 
-//   title: {
-//     type: String,
-//     required: true
-//   },
-//   description: {
-//     type: String,
-//     required: true
-//   },
-//   status: {
-//     type: String,
-//     enum: ['Available', 'Reserved', 'Checked Out'],
-//     default: 'Available'
-//   }
+
   
